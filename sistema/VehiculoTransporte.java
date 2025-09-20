@@ -3,11 +3,15 @@ public class VehiculoTransporte extends Vehiculo implements Mantenimiento {
     private Categoria categoria;
     private Chofer chofer;
 
-    public VehiculoTransporte(String marca, String modelo, String patente, String kilometraje, int velocidad, int cantDePasajeros, Categoria categoria,String nombre, String apellido, String dni, int salario) {
-        super(marca, modelo, patente, kilometraje, velocidad);
+    public VehiculoTransporte(String marca, String modelo, String patente, String kilometraje, int velocidad, int cantDePasajeros, Categoria categoria,String nombre, String apellido, String dni, int salario, TipoDeVehiculo tipoDeVehiculo) {
+        super(marca, modelo, patente, kilometraje, velocidad, tipoDeVehiculo);
         this.cantDePasajeros = cantDePasajeros;
         this.categoria = categoria;
         this.chofer = new Chofer(nombre, apellido, dni, salario);
+    }
+
+    public int getCantDePasajeros() {
+        return cantDePasajeros;
     }
 
     @Override

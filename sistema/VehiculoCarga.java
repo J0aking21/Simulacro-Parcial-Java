@@ -3,11 +3,19 @@ public class VehiculoCarga extends Vehiculo implements Mantenimiento {
     private MedidaCarga medidaCarga;
     private Chofer chofer;
 
-    public VehiculoCarga(String marca, String modelo, String patente, String kilometraje, int velocidad, double capacidadDeCarga, MedidaCarga medidaCarga,String nombre, String apellido, String dni, int salario) {
-        super(marca, modelo, patente, kilometraje, velocidad);
+    public VehiculoCarga(Marca marca, String modelo, String patente, String kilometraje, int velocidad, double capacidadDeCarga, MedidaCarga medidaCarga,String nombre, String apellido, String dni, int salario, TipoDeVehiculo tipoDeVehiculo) {
+        super(marca, modelo, patente, kilometraje, velocidad, tipoDeVehiculo);
         this.capacidadDeCarga = capacidadDeCarga;
         this.medidaCarga = medidaCarga;
         this.chofer = new Chofer(nombre, apellido, dni, salario);
+    }
+
+    public double getCapacidadDeCarga() {
+        return capacidadDeCarga;
+    }
+
+    public MedidaCarga getMedidaCarga() {
+        return medidaCarga;
     }
 
     @Override

@@ -10,4 +10,8 @@ public class Chofer {
         this.dni = dni;
         this.salario = salario;
     }
+
+    public String getDni() {
+        return dni;
+    }
 }
