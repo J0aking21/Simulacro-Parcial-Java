@@ -27,7 +27,7 @@ public class Empresa {
                     MenuCarga(vehiculos);
                     break;
                 case 2:
-                    System.out.println("Listando Vehiculos....");
+                    listarVehiculos(vehiculos);
                     break;
                 case 3:
                     seguir = 'n';
