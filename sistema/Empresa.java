@@ -41,7 +41,7 @@ public class Empresa {
         int opcion, i = 0;
         char seguir1 = 's';
 
-        while (seguir1 == 's' || i < vehiculos.size()) {
+        while (seguir1 == 's' && i < vehiculos.size()) {
             System.out.println("+-----------------------------------+");
             System.out.println("|          Menu De Carga            |");
             System.out.println("+-----------------------------------+");
