@@ -1,9 +1,9 @@
 public class VehiculoTransporte extends Vehiculo implements Mantenimiento {
     private int cantDePasajeros;
-    private Categoria categoria;
-    private Chofer chofer;
+    private final Categoria categoria;
+    private final Chofer chofer;
 
-    public VehiculoTransporte(String marca, String modelo, String patente, String kilometraje, int velocidad, int cantDePasajeros, Categoria categoria,String nombre, String apellido, String dni, int salario, TipoDeVehiculo tipoDeVehiculo) {
+    public VehiculoTransporte(Marca marca, String modelo, String patente, String kilometraje, int velocidad, int cantDePasajeros, Categoria categoria,String nombre, String apellido, String dni, int salario, TipoDeVehiculo tipoDeVehiculo) {
         super(marca, modelo, patente, kilometraje, velocidad, tipoDeVehiculo);
         this.cantDePasajeros = cantDePasajeros;
         this.categoria = categoria;
@@ -12,6 +12,10 @@ public class VehiculoTransporte extends Vehiculo implements Mantenimiento {
 
     public int getCantDePasajeros() {
         return cantDePasajeros;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
     }
 
     @Override
@@ -26,4 +30,12 @@ public class VehiculoTransporte extends Vehiculo implements Mantenimiento {
     public void modificarCapacidad(int capacidad) {
         this.cantDePasajeros = capacidad;
     }
+
+    public String datosTransporte() {
+        return super.toString() +
+               " Cantidad de Pasajeros: " + cantDePasajeros +
+               " Categoria: " + getCategoria() +
+               " Chofer: " + chofer.toString();
+    }
 }
+

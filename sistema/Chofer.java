@@ -1,7 +1,7 @@
 public class Chofer {
-    private String nombre;
-    private String apellido;
-    private String dni;
+    private final String nombre;
+    private final String apellido;
+    private final String dni;
     private int salario;
 
     public Chofer(String nombre, String apellido, String dni, int salario) {
@@ -13,5 +13,20 @@ public class Chofer {
 
     public String getDni() {
         return dni;
+    }
+
+    public int getSalario() {
+        return salario;
+    }
+    public void setSalario(int salario) {
+        this.salario = salario;
+    }
+
+    @Override
+    public String toString() {
+        return " Nombre: " + nombre +
+               " Apellido: " + apellido +
+               " Dni: " + dni +
+               " Salario: " + getSalario();
     }
 }

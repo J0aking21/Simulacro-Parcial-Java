@@ -1,10 +1,10 @@
 public abstract class Vehiculo {
-    private Marca marca;
-    private String modelo;
-    private String patente;
+    private final Marca marca;
+    private final String modelo;
+    private final String patente;
     private String kilometraje;
     private int velocidad;
-    private TipoDeVehiculo tipoDeVehiculo;
+    private final TipoDeVehiculo tipoDeVehiculo;
 
     public  Vehiculo(Marca marca, String modelo, String patente, String kilometraje, int velocidad, TipoDeVehiculo tipoDeVehiculo) {
         this.marca = marca;
@@ -19,24 +19,12 @@ public abstract class Vehiculo {
         return marca;
     }
 
-    public void setMarca(Marca marca) {
-        this.marca = marca;
-    }
-
     public String getModelo() {
         return modelo;
     }
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
     public String getPatente() {
         return patente;
-    }
-
-    public void setPatente(String patente) {
-        this.patente = patente;
     }
 
     public String getKilometraje() {
@@ -57,5 +45,15 @@ public abstract class Vehiculo {
 
     public TipoDeVehiculo getTipoDeVehiculo() {
         return tipoDeVehiculo;
+    }
+
+    @Override
+    public String toString() {
+        return " Marca: " + getMarca() +
+               " Modelo: " + getModelo() +
+               " Patente: " + getPatente() +
+               " Kilometraje: " + getKilometraje() +
+               " Velocidad: " + getVelocidad();
+
     }
 }
