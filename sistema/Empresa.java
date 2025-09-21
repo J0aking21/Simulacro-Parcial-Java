@@ -2,7 +2,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Empresa {
-    public void MenuPrincpal() {
+    public void menuPrincipal() {
         Scanner sc = new Scanner(System.in);
 
         int opcion;
@@ -24,7 +24,7 @@ public class Empresa {
             opcion = sc.nextInt();
             switch (opcion){
                 case 1:
-                    MenuCarga(vehiculos);
+                    menuCarga(vehiculos);
                     break;
                 case 2:
                     listarVehiculos(vehiculos);
@@ -35,7 +35,7 @@ public class Empresa {
         }
         System.out.println("Finalizando Programa....");
     }
-    public void MenuCarga(HashMap<Integer, Vehiculo> vehiculos) {
+    public void menuCarga(HashMap<Integer, Vehiculo> vehiculos) {
         Scanner sc = new Scanner(System.in);
 
         int opcion, i = 0;
@@ -217,16 +217,19 @@ public class Empresa {
         return new VehiculoEmpresarial(marca,modelo,patente,kilometraje,velocidad,cantDeButacas,anioDeAdquisicion,nombre,apellido,dni,salario,TipoDeVehiculo.EMPRESARIAL);
     }
     public void listarVehiculos(HashMap<Integer, Vehiculo> vehiculos) {
-        for (Vehiculo vehiculo : vehiculos.values()) {
-            if( vehiculo instanceof VehiculoTransporte) {
-                System.out.println(" Lista de Vehiculos de transporte ");
-                System.out.println(((VehiculoTransporte) vehiculo).datosTransporte());
-            }else if( vehiculo instanceof VehiculoEmpresarial) {
-                System.out.println(" Lista de Vehiculos de empresarial");
+        if (!vehiculos.isEmpty()) {
+            for (Vehiculo vehiculo : vehiculos.values()) {
+                if( vehiculo instanceof VehiculoTransporte) {
+                    System.out.println("[Transporte] " + ((VehiculoTransporte) vehiculo).datosTransporte());
+                }else if( vehiculo instanceof VehiculoEmpresarial) {
+                    System.out.println(" Lista de Vehiculos de empresarial");
 
-            }else {
-                System.out.println(" Lista de Vehiculos de carga ");
+                }else {
+                    System.out.println(" Lista de Vehiculos de carga ");
+                }
             }
+        }else {
+            System.out.println(" No hay registros para listar...");
         }
     }
 }
