@@ -1,4 +1,5 @@
-public abstract class Vehiculo {
+import java.util.Objects;
+public abstract class Vehiculo{
     private final Marca marca;
     private final String modelo;
     private final String patente;
@@ -55,5 +56,17 @@ public abstract class Vehiculo {
                " Kilometraje: " + getKilometraje() +
                " Velocidad: " + getVelocidad();
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Vehiculo vehiculo = (Vehiculo) o;
+        return Objects.equals(patente, vehiculo.patente);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(patente);
     }
 }

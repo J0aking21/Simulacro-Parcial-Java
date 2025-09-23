@@ -3,11 +3,11 @@ public class VehiculoCarga extends Vehiculo implements Mantenimiento {
     private MedidaCarga medidaCarga;
     private Chofer chofer;
 
-    public VehiculoCarga(Marca marca, String modelo, String patente, String kilometraje, int velocidad, double capacidadDeCarga, MedidaCarga medidaCarga,String nombre, String apellido, String dni, int salario, TipoDeVehiculo tipoDeVehiculo) {
+    public VehiculoCarga(Marca marca, String modelo, String patente, String kilometraje, int velocidad, double capacidadDeCarga, MedidaCarga medidaCarga, Chofer chofer, TipoDeVehiculo tipoDeVehiculo) {
         super(marca, modelo, patente, kilometraje, velocidad, tipoDeVehiculo);
         this.capacidadDeCarga = capacidadDeCarga;
         this.medidaCarga = medidaCarga;
-        this.chofer = new Chofer(nombre, apellido, dni, salario);
+        this.chofer = chofer;
     }
 
     public double getCapacidadDeCarga() {
@@ -16,6 +16,16 @@ public class VehiculoCarga extends Vehiculo implements Mantenimiento {
 
     public MedidaCarga getMedidaCarga() {
         return medidaCarga;
+    }
+    public String datosCarga() {
+        return super.toString() +
+               "Capacidad de carga: " + capacidadDeCarga +
+               " Medida de carga: " + medidaCarga +
+               " Chofer: " + chofer.toString();
+    }
+
+    public Chofer getChofer() {
+        return chofer;
     }
 
     @Override
@@ -30,4 +40,6 @@ public class VehiculoCarga extends Vehiculo implements Mantenimiento {
     public void modificarCapacidad(int capacidad) {
         this.capacidadDeCarga = capacidad;
     }
+
+
 }

@@ -29,4 +29,5 @@ public class Chofer {
                " Dni: " + dni +
                " Salario: " + getSalario();
     }
+
 }
