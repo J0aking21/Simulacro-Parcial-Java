@@ -1,6 +1,6 @@
 public class VehiculoCarga extends Vehiculo implements Mantenimiento {
     private double capacidadDeCarga;
-    private MedidaCarga medidaCarga;
+    private final MedidaCarga medidaCarga;
 
     public VehiculoCarga(Marca marca, String modelo, String patente, String kilometraje, int velocidad, double capacidadDeCarga, MedidaCarga medidaCarga, TipoDeVehiculo tipoDeVehiculo) {
         super(marca, modelo, patente, kilometraje, velocidad, tipoDeVehiculo);
@@ -15,10 +15,11 @@ public class VehiculoCarga extends Vehiculo implements Mantenimiento {
     public MedidaCarga getMedidaCarga() {
         return medidaCarga;
     }
+
     public String datosCarga() {
         return super.toString() +
                "Capacidad de carga: " + capacidadDeCarga +
-               " Medida de carga: " + medidaCarga;
+               " Medida de carga: " + getMedidaCarga();
     }
 
     @Override

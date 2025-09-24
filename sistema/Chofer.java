@@ -18,9 +18,6 @@ public class Chofer {
     public int getSalario() {
         return salario;
     }
-    public void setSalario(int salario) {
-        this.salario = salario;
-    }
 
     @Override
     public String toString() {
