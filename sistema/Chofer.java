@@ -2,7 +2,7 @@ public class Chofer {
     private final String nombre;
     private final String apellido;
     private final String dni;
-    private int salario;
+    private double salario;
 
     public Chofer(String nombre, String apellido, String dni, int salario) {
         this.nombre = nombre;
@@ -15,8 +15,12 @@ public class Chofer {
         return dni;
     }
 
-    public int getSalario() {
+    public double getSalario() {
         return salario;
+    }
+
+    public void setSalario(double salario) {
+        this.salario = salario;
     }
 
     @Override

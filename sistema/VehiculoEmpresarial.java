@@ -18,7 +18,8 @@ public class VehiculoEmpresarial extends Vehiculo {
     }
 
     public String datosEmpresarial() {
-        return super.toString() +
+        return "[Empresarial]" +
+                super.toString() +
                " Cantidad de butacas: " + getCantDeButacas() +
                " Año de adquisicion: " + getAnioDeAdquisicion();
     }

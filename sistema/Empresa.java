@@ -9,7 +9,9 @@ public class Empresa {
         char seguir = 's';
 
         HashMap<String, Vehiculo> vehiculos = new HashMap<>();
-        HashMap<String, Chofer>  chofers = new HashMap<>();
+        HashMap<String, Chofer> chofers = new HashMap<>();
+        HashMap<Integer,Viajes> viajes = new HashMap<>();
+
         System.out.println("Iniciando Programa....");
 
         while (seguir == 's') {
@@ -26,13 +28,23 @@ public class Empresa {
             System.out.println("+----------------------------+");
             System.out.println("| 5. Mostrar Por Patente     |");
             System.out.println("+----------------------------+");
-            System.out.println("| 6. Cargar chofers          |");
+            System.out.println("| 6. Cargar Chofers          |");
             System.out.println("+----------------------------+");
-            System.out.println("| 7. Eliminar chofer         |");
+            System.out.println("| 7. Eliminar Chofer         |");
             System.out.println("+----------------------------+");
-            System.out.println("| 8. Listar chofer           |");
+            System.out.println("| 8. Listar Chofer           |");
             System.out.println("+----------------------------+");
-            System.out.println("| 9. Salir                   |");
+            System.out.println("| 9. Mostrar Chofer Por Dni  |");
+            System.out.println("+----------------------------+");
+            System.out.println("| 10. Cargar Viajes          |");
+            System.out.println("+----------------------------+");
+            System.out.println("| 11. Listar Viajes          |");
+            System.out.println("+----------------------------+");
+            System.out.println("| 12. Mostrar Viajes Por Id  |");
+            System.out.println("+----------------------------+");
+            System.out.println("| 13. Calcular Viajes        |");
+            System.out.println("+----------------------------+");
+            System.out.println("| 14. Salir                  |");
             System.out.println("+----------------------------+");
             System.out.println("| Ingrese una opcion: ");
             opcion = sc.nextInt();
@@ -62,6 +74,21 @@ public class Empresa {
                     listarChofers(chofers);
                     break;
                 case 9:
+                    mostrarPorDni(chofers);
+                    break;
+                case 10:
+                    cargarViajes(viajes,chofers,vehiculos);
+                    break;
+                case 11:
+                    listarViajes(viajes);
+                    break;
+                case 12:
+                    mostrarPorId(viajes);
+                    break;
+                case 13:
+                    calcularViajes(viajes);
+                    break;
+                case 14:
                     seguir = 'n';
                     break;
             }
@@ -69,7 +96,7 @@ public class Empresa {
         System.out.println("Finalizando Programa....");
     }
 
-    /// Funciones de carga de vehiculos
+    /// Funciones de Vehiculos
     public Marca cargarMarca() {
         Scanner sc = new Scanner(System.in);
         int opcion;
@@ -310,6 +337,7 @@ public class Empresa {
         }
     }
 
+    /// Funciones de Choferes
     public Chofer cargachofer() {
         Scanner sc = new Scanner(System.in);
         String nombre, apellido, dni;
@@ -362,5 +390,132 @@ public class Empresa {
             System.out.println("No hay registros que listar");
         }
     }
+    public void mostrarPorDni(HashMap<String, Chofer> chofers) {
+        Scanner sc = new Scanner(System.in);
+        String dni;
+
+        System.out.println("Ingrese el DNI del Chofer: ");
+        dni = sc.nextLine();
+
+        for (Chofer chofer : chofers.values()) {
+            if (chofer.getDni().equals(dni)) {
+                System.out.println(chofer.toString());
+            }
+        }
+    }
+
+    /// Funciones de Viajes
+    public Viajes cargarViaje(HashMap<String, Vehiculo> vehiculos, HashMap<String, Chofer> chofers) {
+        Scanner sc = new Scanner(System.in);
+        String destino;
+        double tarifa, distancia;
+        String patente, dni;
+
+        System.out.println("Ingrese el destino del Viaje: ");
+        destino = sc.nextLine();
+        System.out.println("Ingrese el tarifa del Viaje: ");
+        tarifa = sc.nextDouble();
+        System.out.println("Ingrese el distancia del Viaje: ");
+        distancia = sc.nextDouble();
+        sc.nextLine();
+
+        listarVehiculos(vehiculos);
+        System.out.println("Ingrese la patente del vehiculo: ");
+        patente = sc.nextLine();
+        listarChofers(chofers);
+        System.out.println("Ingrese el dni del chofer: ");
+        dni = sc.nextLine();
+        if (chofers.containsKey(dni) && vehiculos.containsKey(patente)) {
+            Chofer c = chofers.get(dni);
+            Vehiculo v = vehiculos.get(patente);
+
+            return new Viajes(c,v,destino,distancia,tarifa);
+        }else{
+            System.out.println(" El chofer o el vehiculo no existe");
+            return null;
+        }
+    }
+    public void cargarViajes(HashMap<Integer, Viajes> viajes, HashMap<String, Chofer> chofers, HashMap<String, Vehiculo> vehiculos) {
+        Scanner sc = new Scanner(System.in);
+        char continuar = 's';
+        int i = 0;
+        Viajes viaje;
+
+        while (continuar == 's' && i < viajes.size()) {
+            viaje = cargarViaje(vehiculos, chofers);
+            viajes.put(viaje.getId(), viaje);
+
+            System.out.println("Desea ingresar otro viaje?");
+            continuar = sc.next().charAt(0);
+        }
+    }
+    public void listarViajes(HashMap<Integer,Viajes> viajes) {
+        if (!viajes.isEmpty()) {
+            for (Viajes viaje : viajes.values()) {
+                System.out.println(viaje.retornarDatosViaje());
+            }
+        }else{
+            System.out.println("No hay registros que listar");
+        }
+    }
+    public void mostrarPorId(HashMap<Integer, Viajes> viajes) {
+        Scanner sc = new Scanner(System.in);
+        int id;
+        listarViajes(viajes);
+        System.out.println("Ingrese el ID del Viaje: ");
+        id = sc.nextInt();
+        for (Viajes viaje : viajes.values()) {
+            if (viaje.getId() == id) {
+                System.out.println(viaje.retornarDatosViaje());
+                System.out.println(viaje.getChofer().toString());
+                System.out.println(viaje.getVehiculo().toString());
+            }
+        }
+
+    }
+    public double calcularTiempoDeViaje(HashMap<Integer, Viajes> viajes, int idViaje) {
+       double tiempo;
+       if(viajes.containsKey(idViaje)){
+           Viajes viaje = viajes.get(idViaje);
+           Vehiculo vehiculo = viaje.getVehiculo();
+           if(vehiculo.getVelocidad() <= 0){
+               System.out.println("No tiene velocidad valida");
+               return -1;
+           }
+           return viaje.getDistancia() / vehiculo.getVelocidad();
+       }else{
+           System.out.println("No hay viajes con ese id");
+           return -1;
+       }
+
+    }
+    public double calcularSalarioChofer(HashMap<Integer, Viajes> viajes, int idViaje) {
+        double salario;
+        if(viajes.containsKey(idViaje)){
+            Viajes viaje = viajes.get(idViaje);
+            Chofer chofer = viaje.getChofer();
+            salario = viaje.getTarifa() * viaje.getDistancia();
+            chofer.setSalario(salario);
+            return salario;
+        }else {
+            System.out.println("No hay viajes con ese id");
+            return -1;
+        }
+    }
+    public double totalRecaudacion(HashMap<Integer, Viajes> viajes) {
+        double recaudacion = 0.0;
+        for(Viajes viaje : viajes.values()){
+            recaudacion += viaje.getTarifa();
+        }
+        return recaudacion;
+    }
+    public void calcularViajes(HashMap<Integer, Viajes> viajes) {
+        for (Viajes viaje : viajes.values()) {
+            System.out.println("El tiempo estimado del viaje con id " + viaje.getId() + " es: " + calcularTiempoDeViaje(viajes, viaje.getId()));
+            System.out.println("El salario del chofer con dni " + viaje.getChofer().getDni() + " es: " + calcularSalarioChofer(viajes, viaje.getId()));
+        }
+        System.out.println("El total de la recaudacion de los viajes es de: " + totalRecaudacion(viajes));
+    }
+
 
 }

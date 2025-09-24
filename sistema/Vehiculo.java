@@ -50,7 +50,8 @@ public abstract class Vehiculo{
 
     @Override
     public String toString() {
-        return " Marca: " + getMarca() +
+        return "[Vehiculo] " +
+               " Marca: " + getMarca() +
                " Modelo: " + getModelo() +
                " Patente: " + getPatente() +
                " Kilometraje: " + getKilometraje() +

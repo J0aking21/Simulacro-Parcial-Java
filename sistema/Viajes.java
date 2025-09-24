@@ -1,20 +1,42 @@
-import java.util.UUID;
-
 public class Viajes {
     private  String destino;
     private double distancia;
     private double tarifa;
-    private UUID id;
+    private int id;
+    private Chofer chofer;
+    private Vehiculo vehiculo;
 
-    public Viajes(String destino, double distancia, double tarifa, int id) {
+    public Viajes(Chofer chofer, Vehiculo vehiculo, String destino, double distancia, double tarifa) {
+        this.chofer = chofer;
+        this.vehiculo = vehiculo;
         this.destino = destino;
         this.distancia = distancia;
         this.tarifa = tarifa;
-        this.id = UUID.randomUUID();
+        this.id = id++;
     }
-    public String retornarDatosViaje(Chofer chofer, Vehiculo vehiculo){
+
+    public int getId() {
+        return id;
+    }
+
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+    public Chofer getChofer() {
+        return chofer;
+    }
+
+    public double getTarifa() {
+        return tarifa;
+    }
+
+    public double getDistancia() {
+        return distancia;
+    }
+
+    public String retornarDatosViaje(){
         if( vehiculo.getTipoDeVehiculo().equals(TipoDeVehiculo.CARGA) && vehiculo instanceof VehiculoCarga){
-            return  " Datos del Viaje " +
+            return  " [Datos del Viaje] " +
                     " Dni Chofer: " + chofer.getDni() +
                     " Patente Vehiculo: " + vehiculo.getPatente() +
                     " Capacidad de carga: " + ((VehiculoCarga) vehiculo).getCapacidadDeCarga() +
@@ -23,7 +45,7 @@ public class Viajes {
                     " Tarifa: " + tarifa +
                     " Numero Id: " + id;
         } else if (vehiculo.getTipoDeVehiculo().equals(TipoDeVehiculo.PASAJEROS) && vehiculo instanceof VehiculoTransporte){
-            return  " Datos del Viaje " +
+            return  " [Datos del Viaje] " +
                     " Dni Chofer: " + chofer.getDni() +
                     " Patente Vehiculo: " + vehiculo.getPatente() +
                     " Pasajeros: " + ((VehiculoTransporte) vehiculo).getCantDePasajeros() +
