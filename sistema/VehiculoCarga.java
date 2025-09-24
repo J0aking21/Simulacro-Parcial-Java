@@ -18,8 +18,7 @@ public class VehiculoCarga extends Vehiculo implements Mantenimiento {
     public String datosCarga() {
         return super.toString() +
                "Capacidad de carga: " + capacidadDeCarga +
-               " Medida de carga: " + medidaCarga +
-               " Chofer: " + chofer.toString();
+               " Medida de carga: " + medidaCarga;
     }
 
     @Override

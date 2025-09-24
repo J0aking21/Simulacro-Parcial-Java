@@ -31,8 +31,7 @@ public class VehiculoTransporte extends Vehiculo implements Mantenimiento {
     public String datosTransporte() {
         return super.toString() +
                " Cantidad de Pasajeros: " + cantDePasajeros +
-               " Categoria: " + getCategoria() +
-               " Chofer: " + chofer.toString();
+               " Categoria: " + getCategoria();
     }
 }
 
