@@ -9,6 +9,7 @@ public class Empresa {
         char seguir = 's';
 
         HashMap<String, Vehiculo> vehiculos = new HashMap<>();
+        HashMap<String, Chofer>  chofers = new HashMap<>();
         System.out.println("Iniciando Programa....");
 
         while (seguir == 's') {
@@ -25,13 +26,19 @@ public class Empresa {
             System.out.println("+----------------------------+");
             System.out.println("| 5. Mostrar Por Patente     |");
             System.out.println("+----------------------------+");
-            System.out.println("| 6. Salir                   |");
+            System.out.println("| 6. Cargar chofers          |");
             System.out.println("+----------------------------+");
-            System.out.println("Ingrese una opcion: ");
+            System.out.println("| 7. Eliminar chofer         |");
+            System.out.println("+----------------------------+");
+            System.out.println("| 8. Listar chofer           |");
+            System.out.println("+----------------------------+");
+            System.out.println("| 9. Salir                   |");
+            System.out.println("+----------------------------+");
+            System.out.println("| Ingrese una opcion: ");
             opcion = sc.nextInt();
             switch (opcion){
                 case 1:
-                    menuCarga(vehiculos);
+                    cargarVehiculos(vehiculos);
                     break;
                 case 2:
                     listarVehiculos(vehiculos);
@@ -46,12 +53,124 @@ public class Empresa {
                     mostrarPorPatente(vehiculos);
                     break;
                 case 6:
+                    cargarChofers(chofers);
+                    break;
+                case 7:
+                    eliminarChofer(chofers);
+                    break;
+                case 8:
+                    listarChofers(chofers);
+                    break;
+                case 9:
                     seguir = 'n';
+                    break;
             }
         }
         System.out.println("Finalizando Programa....");
     }
-    public void menuCarga(HashMap<String, Vehiculo> vehiculos) {
+
+    /// Funciones de carga de vehiculos
+    public Marca cargarMarca() {
+        Scanner sc = new Scanner(System.in);
+        int opcion;
+        System.out.println("Ingrese la Marca del Vehiculo: ");
+        opcion = sc.nextInt();
+        if (opcion == 1) {
+            return Marca.CHEVROLET;
+        } else if (opcion == 2) {
+            return Marca.FORD;
+        } else if (opcion == 3) {
+            return Marca.DODGE;
+        }else{
+            return Marca.JEEP;
+        }
+    }
+    public VehiculoCarga cargarVehiculoCarga() {
+        Scanner sc = new Scanner(System.in);
+
+        String modelo, patente, kilometraje;
+        int velocidad, capacidad, opcion;
+        MedidaCarga medidaCarga;
+        Marca marca;
+
+        marca = cargarMarca();
+
+        System.out.println("Ingrese el Modelo del Vehiculo: ");
+        modelo = sc.nextLine();
+        System.out.println("Ingrese la Patente del Vehiculo: ");
+        patente = sc.nextLine();
+        System.out.println("Ingrese el Kilometraje del Vehiculo: ");
+        kilometraje = sc.nextLine();
+        System.out.println("Ingrese la Velocidad del Vehiculo: ");
+        velocidad = sc.nextInt();
+        System.out.println("Ingrese la Capacidad de Carga del Vehiculo: ");
+        capacidad = sc.nextInt();
+        System.out.println("Ingrese la Medida de Carga del Vehiculo: ");
+        opcion = sc.nextInt();
+        if (opcion == 1) {
+            medidaCarga = MedidaCarga.KGS;
+        } else if (opcion == 2) {
+            medidaCarga = MedidaCarga.LBS;
+        } else {
+            medidaCarga = MedidaCarga.LTS;
+        }
+        return new VehiculoCarga(marca, modelo, patente, kilometraje, velocidad, capacidad, medidaCarga, TipoDeVehiculo.CARGA);
+    }
+    public VehiculoTransporte cargarVehiculoPasajeros() {
+        Scanner sc = new Scanner(System.in);
+
+        String modelo, patente, kilometraje;
+        int velocidad, capacidad, opcion;
+        Categoria c;
+
+        Marca marca = cargarMarca();
+
+        System.out.println("Ingrese el Modelo del Vehiculo: ");
+        modelo = sc.nextLine();
+        System.out.println("Ingrese la Patente del Vehiculo: ");
+        patente = sc.nextLine();
+        System.out.println("Ingrese el Kilometraje del Vehiculo: ");
+        kilometraje = sc.nextLine();
+        System.out.println("Ingrese la Velocidad del Vehiculo: ");
+        velocidad = sc.nextInt();
+        System.out.println("Ingrese la cantidad de pasajeros del Vehiculo: ");
+        capacidad = sc.nextInt();
+        System.out.println("Ingrese la categoria del Vehiculo: ");
+        opcion = sc.nextInt();
+        if (opcion == 1) {
+            c = Categoria.STANDARD;
+        } else if (opcion == 2) {
+            c = Categoria.PREMIUM;
+        }else {
+            c = Categoria.DELUXE;
+        }
+
+        return new VehiculoTransporte(marca, modelo, patente, kilometraje, velocidad, capacidad, c, TipoDeVehiculo.PASAJEROS);
+    }
+    public VehiculoEmpresarial cargarVehiculoEmpresarial() {
+        Scanner sc = new Scanner(System.in);
+
+        String modelo, patente, kilometraje;
+        int velocidad, cantDeButacas, anioDeAdquisicion;
+        Marca marca;
+
+        marca = cargarMarca();
+        System.out.println("Ingrese el Modelo del Vehiculo: ");
+        modelo = sc.nextLine();
+        System.out.println("Ingrese la Patente del Vehiculo: ");
+        patente = sc.nextLine();
+        System.out.println("Ingrese la cantidad de butacas del vehiculo:");
+        cantDeButacas = sc.nextInt();
+        System.out.println("Ingrese el año de adquisicion del vehiculo:");
+        anioDeAdquisicion = sc.nextInt();
+        System.out.println("Ingrese el Kilometraje del Vehiculo: ");
+        kilometraje = sc.nextLine();
+        System.out.println("Ingrese la Velocidad del Vehiculo: ");
+        velocidad = sc.nextInt();
+
+        return new VehiculoEmpresarial(marca, modelo, patente, kilometraje, velocidad, cantDeButacas, anioDeAdquisicion, TipoDeVehiculo.EMPRESARIAL);
+    }
+    public void cargarVehiculos(HashMap<String, Vehiculo> vehiculos) {
         Scanner sc = new Scanner(System.in);
 
         int opcion, i = 0;
@@ -92,125 +211,6 @@ public class Empresa {
                 System.out.println("Retornando al Menu Principal....");
             }
         }
-    }
-    public Chofer cargachofer() {
-        Scanner sc = new Scanner(System.in);
-        String nombre, apellido, dni;
-        int salario;
-
-        System.out.println("Ingrese el Nombre del Chofer: ");
-        nombre = sc.nextLine();
-        System.out.println("Ingrese el Apellido del Chofer: ");
-        apellido = sc.nextLine();
-        System.out.println("Ingrese el DNI del Chofer: ");
-        dni = sc.nextLine();
-        System.out.println("Ingrese el Salario del Chofer x Km: ");
-        salario = sc.nextInt();
-        return new Chofer(nombre, apellido, dni, salario);
-    }
-    public Marca cargarMarca() {
-        Scanner sc = new Scanner(System.in);
-        int opcion;
-        System.out.println("Ingrese la Marca del Vehiculo: ");
-        opcion = sc.nextInt();
-        if (opcion == 1) {
-            return Marca.CHEVROLET;
-        } else if (opcion == 2) {
-            return Marca.FORD;
-        } else if (opcion == 3) {
-            return Marca.DODGE;
-        }else{
-            return Marca.JEEP;
-        }
-    }
-    public VehiculoCarga cargarVehiculoCarga() {
-        Scanner sc = new Scanner(System.in);
-
-        String modelo, patente, kilometraje;
-        int velocidad, capacidad, opcion;
-        MedidaCarga medidaCarga;
-        Chofer chofer;
-        Marca marca;
-
-        marca = cargarMarca();
-
-        System.out.println("Ingrese el Modelo del Vehiculo: ");
-        modelo = sc.nextLine();
-        System.out.println("Ingrese la Patente del Vehiculo: ");
-        patente = sc.nextLine();
-        System.out.println("Ingrese el Kilometraje del Vehiculo: ");
-        kilometraje = sc.nextLine();
-        System.out.println("Ingrese la Velocidad del Vehiculo: ");
-        velocidad = sc.nextInt();
-        System.out.println("Ingrese la Capacidad de Carga del Vehiculo: ");
-        capacidad = sc.nextInt();
-        System.out.println("Ingrese la Medida de Carga del Vehiculo: ");
-        opcion = sc.nextInt();
-        if (opcion == 1) {
-            medidaCarga = MedidaCarga.KGS;
-        } else if (opcion == 2) {
-            medidaCarga = MedidaCarga.LBS;
-        } else {
-            medidaCarga = MedidaCarga.LTS;
-        }
-        chofer = cargachofer();
-        return new VehiculoCarga(marca, modelo, patente, kilometraje, velocidad, capacidad, medidaCarga, chofer, TipoDeVehiculo.CARGA);
-    }
-    public VehiculoTransporte cargarVehiculoPasajeros() {
-        Scanner sc = new Scanner(System.in);
-
-        String modelo, patente, kilometraje;
-        int velocidad, capacidad, opcion;
-        Categoria c;
-
-        Marca marca = cargarMarca();
-
-        System.out.println("Ingrese el Modelo del Vehiculo: ");
-        modelo = sc.nextLine();
-        System.out.println("Ingrese la Patente del Vehiculo: ");
-        patente = sc.nextLine();
-        System.out.println("Ingrese el Kilometraje del Vehiculo: ");
-        kilometraje = sc.nextLine();
-        System.out.println("Ingrese la Velocidad del Vehiculo: ");
-        velocidad = sc.nextInt();
-        System.out.println("Ingrese la cantidad de pasajeros del Vehiculo: ");
-        capacidad = sc.nextInt();
-        System.out.println("Ingrese la categoria del Vehiculo: ");
-        opcion = sc.nextInt();
-        if (opcion == 1) {
-            c = Categoria.STANDARD;
-        } else if (opcion == 2) {
-            c = Categoria.PREMIUM;
-        }else {
-            c = Categoria.DELUXE;
-        }
-        Chofer chofer = cargachofer();
-
-        return new VehiculoTransporte(marca, modelo, patente, kilometraje, velocidad, capacidad, c, chofer, TipoDeVehiculo.PASAJEROS);
-    }
-    public VehiculoEmpresarial cargarVehiculoEmpresarial() {
-        Scanner sc = new Scanner(System.in);
-
-        String modelo, patente, kilometraje;
-        int velocidad, cantDeButacas, anioDeAdquisicion;
-        Marca marca;
-
-        marca = cargarMarca();
-        System.out.println("Ingrese el Modelo del Vehiculo: ");
-        modelo = sc.nextLine();
-        System.out.println("Ingrese la Patente del Vehiculo: ");
-        patente = sc.nextLine();
-        System.out.println("Ingrese la cantidad de butacas del vehiculo:");
-        cantDeButacas = sc.nextInt();
-        System.out.println("Ingrese el año de adquisicion del vehiculo:");
-        anioDeAdquisicion = sc.nextInt();
-        System.out.println("Ingrese el Kilometraje del Vehiculo: ");
-        kilometraje = sc.nextLine();
-        System.out.println("Ingrese la Velocidad del Vehiculo: ");
-        velocidad = sc.nextInt();
-        Chofer chofer = cargachofer();
-
-        return new VehiculoEmpresarial(marca, modelo, patente, kilometraje, velocidad, cantDeButacas, anioDeAdquisicion, chofer, TipoDeVehiculo.EMPRESARIAL);
     }
     public void eliminarVehiculo(HashMap<String, Vehiculo> vehiculos) {
         Scanner sc = new Scanner(System.in);
@@ -309,4 +309,58 @@ public class Empresa {
             }
         }
     }
+
+    public Chofer cargachofer() {
+        Scanner sc = new Scanner(System.in);
+        String nombre, apellido, dni;
+        int salario;
+
+        System.out.println("Ingrese el Nombre del Chofer: ");
+        nombre = sc.nextLine();
+        System.out.println("Ingrese el Apellido del Chofer: ");
+        apellido = sc.nextLine();
+        System.out.println("Ingrese el DNI del Chofer: ");
+        dni = sc.nextLine();
+        System.out.println("Ingrese el Salario del Chofer x Km: ");
+        salario = sc.nextInt();
+        return new Chofer(nombre, apellido, dni, salario);
+    }
+    public void cargarChofers(HashMap<String, Chofer> chofers) {
+        Scanner sc = new Scanner(System.in);
+        char continuar = 's';
+        int i = 0;
+        Chofer chofer;
+
+        while (continuar == 's' && i < chofers.size()) {
+            chofer = cargachofer();
+            chofers.put(chofer.getDni(),chofer);
+
+            System.out.println("Desea ingresar otro chofer?");
+            continuar = sc.next().charAt(0);
+        }
+    }
+    public void eliminarChofer(HashMap<String, Chofer> chofers) {
+        Scanner sc = new Scanner(System.in);
+        String dni;
+
+        System.out.println("Ingrese el DNI del Chofer: ");
+        dni = sc.nextLine();
+
+        if (chofers.containsKey(dni)) {
+            chofers.remove(dni);
+            System.out.println("Chofer eliminado");
+        } else  {
+            System.out.println("Chofer no encontrado");
+        }
+    }
+    public void listarChofers(HashMap<String, Chofer> chofers) {
+        if (!chofers.isEmpty()) {
+            for (Chofer chofer : chofers.values()) {
+                System.out.println(chofer.toString());
+            }
+        }else{
+            System.out.println("No hay registros que listar");
+        }
+    }
+
 }
